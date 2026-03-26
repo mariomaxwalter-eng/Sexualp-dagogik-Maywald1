@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Themenbereiche Ganzheitlicher Sexualpädagogik nach Maywald</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #e6e6fa;
+            margin-bottom: 40px;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .category-header {
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .category-sexual {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+        }
+
+        .category-protection {
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+        }
+
+        .terms-list {
+            padding: 0;
+            background: #f8f9fa;
+        }
+
+        .term-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: left;
+            background: white;
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #333;
+            transition: all 0.2s ease;
+            padding-left: 20px;
+        }
+
+        .term-button:last-child {
+            border-bottom: none;
+        }
+
+        .term-button:hover {
+            background: #f0f0f0;
+            padding-left: 25px;
+        }
+
+        .term-button.active {
+            background: #e6f3ff;
+            color: #4a90e2;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .modal-definition {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            font-style: italic;
+        }
+
+        .modal-content h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .modal-content p, .modal-content li {
+            line-height: 1.7;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .modal-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 2em;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-top: -10px;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .info-box h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .info-box p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .author-info {
+            background: #e6f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4a90e2;
+            margin-top: 20px;
+        }
+
+        .author-info strong {
+            color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .grid-container { grid-template-columns: 1fr; }
+            .modal-content { padding: 25px; width: 95%; }
+            .modal-header { font-size: 1.5em; }
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 30px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 Themenbereiche einer ganzheitlichen Sexualpädagogik</h1>
+        <p class="subtitle">nach Jörg Maywald – Klicken Sie auf einen Begriff für detaillierte Erklärungen</p>
+
+        <div class="info-box">
+            <h2>📚 Über dieses Konzept</h2>
+            <p>
+                <strong>Jörg Maywald</strong> ist ein renommierter deutscher Pädagoge und Soziologe, der sich intensiv mit Kinderschutz und Sexualpädagogik befasst. 
+                Er ist Geschäftsführer der Deutschen Liga für das Kind und Honorarprofessor für Internationale Kinderrechte an der FH Potsdam.
+            </p>
+            <p>
+                Maywalds Konzept einer <strong>ganzheitlichen Sexualpädagogik</strong> basiert auf der Erkenntnis, dass sexuelle Bildung und der Schutz vor sexualisierter Gewalt 
+                <strong>zwei zusammengehörende Seiten einer Medaille</strong> sind. Beide Aspekte verfolgen das gemeinsame Ziel: die Stärkung der sexuellen Identität und sexuellen Selbstbestimmung jedes Kindes.
+            </p>
+            <div class="author-info">
+                <strong>Wichtige Publikation:</strong> "Sexualpädagogik in der Kita: Sexuelle Bildung und Schutz vor sexualisierter Gewalt" (2024)
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <!-- SEXUELLE BILDUNG -->
+            <div class="category-card">
+                <div class="category-header category-sexual">
+                    ✨ Sexuelle Bildung
+                </div>
+                <div class="terms-list">
+                    <button class="term-button" onclick="openModal('geschlechterbewusst')">
+                        👥 Geschlechterbewusste & Geschlechtergerechte Pädagogik
+                    </button>
+                    <button class="term-button" onclick="openModal('sexualaufklaerung')">
+                        📖 Sexualaufklärung
+                    </button>
+                    <button class="term-button" onclick="openModal('sexualerziehung')">
+                        💡 Sexualerziehung
+                    </button>
+                </div>
+            </div>
+
+            <!-- SCHUTZ VOR SEXUELLER GEWALT -->
+            <div class="category-card">
+                <div class="category-header category-protection">
+                    🛡️ Schutz vor sexueller Gewalt
+                </div>
+                <div class="terms-list">
+                    <button class="term-button" onclick="openModal('grenzverletzungen')">
+                        ⚠️ Grenzverletzungen
+                    </button>
+                    <button class="term-button" onclick="openModal('uebergriffen')">
+                        🚫 Sexuelle Übergriffe
+                    </button>
+                    <button class="term-button" onclick="openModal('missbrauch')">
+                        🛑 Sexueller Missbrauch
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODALS -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const definitions = {
+            geschlechterbewusst: {
+                title: "👥 Geschlechterbewusste & Geschlechtergerechte Pädagogik",
+                definition: "Ein Konzept, das Geschlechterfragen in den Mittelpunkt der pädagogischen Arbeit stellt und darauf abzielt, Chancengleichheit zwischen Mädchen und Jungen zu ermöglichen.",
+                content: `
+                    <h3>Was bedeutet das?</h3>
+                    <p>
+                        Geschlechterbewusste Pädagogik ist ein reflektierter Umgang mit Geschlecht und Geschlechterkonstruktionen. 
+                        Sie berücksichtigt, dass Kinder als geschlechtliche Wesen geboren werden und gesellschaftliche Zuschreibungen erleben.
+                    </p>
+                    
+                    <h3>Ziele der geschlechterbewussten Pädagogik:</h3>
+                    <ul>
+                        <li><strong>Stereotype erweitern:</strong> Kindern helfen, einengende Geschlechterbilder zu hinterfragen und zu erweitern</li>
+                        <li><strong>Individuelle Identität:</strong> Mädchen und Jungen in ihren individuellen Interessen und Fähigkeiten unterstützen – jenseits von Klischees</li>
+                        <li><strong>Chancengleichheit:</strong> Beiden Geschlechtern die gleichen Möglichkeiten und Erfahrungen bieten</li>
+                        <li><strong>Selbstbestimmung:</strong> Kinder dabei unterstützen, ihre Geschlechtsidentität selbst zu entwickeln</li>
+                        <li><strong>Vielfalt anerkennen:</strong> Unterschiedliche Lebensweisen, Familienmodelle und geschlechtliche Identitäten wertschätzen</li>
+                    </ul>
+
+                    <h3>Praktische Umsetzung:</h3>
+                    <ul>
+                        <li><strong>Raumgestaltung:</strong> Materialien und Spielecken, die nicht geschlechtsstereotyp gestaltet sind</li>
+                        <li><strong>Sprachgebrauch:</strong> Bewusster Umgang mit Sprache – nicht „Jungenspiel" oder „Mädchenkram"</li>
+                        <li><strong>Rollenmodelle:</strong> Vielfältige Vorbilder von Männern und Frauen in verschiedenen Berufen und Rollen zeigen</li>
+                        <li><strong>Reflexion im Team:</strong> Regelmäßige Auseinandersetzung mit eigenen Geschlechterbildern und Vorurteilen</li>
+                        <li><strong>Elternarbeit:</strong> Dialog mit Eltern über geschlechterbewusste Erziehung</li>
+                    </ul>
+
+                    <h3>Warum ist das wichtig?</h3>
+                    <p>
+                        Eine geschlechterbewusste Pädagogik trägt wesentlich zur Gewaltprävention bei: Kinder, die ihre eigenen Grenzen kennen 
+                        und die Grenzen anderer respektieren, sind besser vor sexuellen Übergriffen geschützt. Auch ihre Selbstwirksamkeit, 
+                        ihr Selbstwertgefühl und ihre Persönlichkeitsentwicklung profitieren von einer bewussten Geschlechterperspektive.
+                    </p>
+                `
+            },
+            sexualaufklaerung: {
+                title: "📖 Sexualaufklärung",
+                definition: "Die altersgerechte, sachliche Vermittlung von Wissen über biologische, medizinische und sexuelle Aspekte der menschlichen Entwicklung.",
+                content: `
+                    <h3>Was bedeutet das?</h3>
+                    <p>
+                        Sexualaufklärung ist die informative Komponente der sexuellen Bildung. Sie vermittelt Kindern wissenschaftlich korrekte 
+                        Informationen über ihren Körper, ihre Entwicklung, Fortpflanzung, Pubertät und sexuelle Gesundheit.
+                    </p>
+
+                    <h3>Inhalte der Sexualaufklärung:</h3>
+                    <ul>
+                        <li><strong>Körperwissen:</strong> Anatomisch korrekte Namen für Körperteile und Geschlechtsorgane</li>
+                        <li><strong>Entwicklung:</strong> Körperliche Veränderungen und die psychosexuelle Entwicklung in verschiedenen Altersstufen</li>
+                        <li><strong>Fortpflanzung:</strong> Wie Babys entstehen – altersgerecht erklärt</li>
+                        <li><strong>Geschlechtsidentität:</strong> Unterschiedliche Geschlechter und geschlechtliche Identitäten</li>
+                        <li><strong>Gesundheit:</strong> Körperhygiene, Menstruation, Ejakulation, sexuelle Gesundheit</li>
+                    </ul>
+
+                    <h3>Grundprinzipien nach Maywald:</h3>
+                    <ul>
+                        <li><strong>Natürlich und normal:</strong> Sexualität als natürlicher Bestandteil des Menschseins darstellen</li>
+                        <li><strong>Altersgerecht:</strong> Erklärungen dem kognitiven Entwicklungsstand anpassen</li>
+                        <li><strong>Sachlich:</strong> Fachbegriffe verwenden (Penis, Scheide, Gebärmutter – nicht Babysprache)</li>
+                        <li><strong>Offen:</strong> Auf Kinderfragen ehrlich und ohne Scham reagieren</li>
+                        <li><strong>Wertschätzend:</strong> Neugier des Kindes ernst nehmen und fördern</li>
+                    </ul>
+
+                    <h3>Warum ist das wichtig?</h3>
+                    <p>
+                        Ein aufgeklärtes Kind ist ein geschütztes Kind. Wenn Kinder über ihren Körper Bescheid wissen, können sie:
+                    </p>
+                    <ul>
+                        <li>Ihre Grenzen besser verstehen und schützen</li>
+                        <li>Unangemessenes Verhalten erkennen und benennen</li>
+                        <li>Über sexuelle Übergriffe sprechen und Hilfe holen</li>
+                    </ul>
+                `
+            },
+            sexualerziehung: {
+                title: "💡 Sexualerziehung",
+                definition: "Die bewusste Begleitung und Unterstützung der kindlichen psychosexuellen Entwicklung, mit dem Ziel der Förderung von Selbstwirksamkeit, Selbstbestimmung und Selbstschutz.",
+                content: `
+                    <h3>Was bedeutet das?</h3>
+                    <p>
+                        Sexualerziehung geht über bloße Aufklärung hinaus. Sie umfasst die ganzheitliche Unterstützung von Kindern in ihrer 
+                        psychosexuellen Entwicklung – mit Fokus auf Körperbewusstsein, Gefühle, Grenzen, Beziehungen und sexuelle Identität.
+                    </p>
+
+                    <h3>Zentrale Ziele der Sexualerziehung:</h3>
+                    <ul>
+                        <li><strong>Körperbewusstsein:</strong> Sich wohlfühlen im eigenen Körper, Körpersignale wahrnehmen und verstehen</li>
+                        <li><strong>Lustfähigkeit:</strong> Erlauben, dass Kinder ihren Körper mit allen Sinnen erforschen und Spaß daran haben</li>
+                        <li><strong>Selbstbestimmung:</strong> Kinder befähigen, über ihren Körper zu entscheiden und Grenzen zu setzen</li>
+                        <li><strong>Beziehungsfähigkeit:</strong> Liebe, Freundschaft, Nähe und Distanz verstehen lernen</li>
+                        <li><strong>Geschlechtsidentität:</strong> Die Entwicklung einer stabilen, positiven Geschlechtsidentität unterstützen</li>
+                        <li><strong>Selbstwirksamkeit:</strong> Kindern vermitteln, dass sie Kontrolle über ihren Körper und ihre Grenzen haben</li>
+                    </ul>
+
+                    <h3>Wie funktioniert Sexualerziehung in der Praxis?</h3>
+                    <ul>
+                        <li><strong>Raum für Körpererkundung:</strong> Zeit und sichere Räume für Körperspiele und altersgerechte Erkundungen</li>
+                        <li><strong>Auf Fragen eingehen:</strong> Kindliche Fragen zu Körper, Liebe und Babys beantworten – ohne Tabus</li>
+                        <li><strong>Grenzen respektieren:</strong> Dem Kind helfen, eigene Grenzen zu setzen und die anderer zu respektieren</li>
+                        <li><strong>Gefühle anerkennen:</strong> Emotionen und ihre Verbindung zu Körper und Beziehungen thematisieren</li>
+                        <li><strong>Vorbildfunktion:</strong> Erzieher*innen als Vorbilder für einen respektvollen Umgang mit Körper und Sexualität</li>
+                    </ul>
+
+                    <h3>Das Konzept der „sexualfreundlichen Umgebung"</h3>
+                    <p>
+                        Nach Maywald ist eine <strong>sexualfreundliche Kita</strong> eine Umgebung, die:
+                    </p>
+                    <ul>
+                        <li>Körperkontakt wertschätzt (Umarmungen, tröstende Berührungen)</li>
+                        <li>Masturbation und Körperspiele als normal anerkennt – solange sie altersgerecht und grenzrespektierend sind</li>
+                        <li>Fragen zu Körper und Sexualität willkommen heißt</li>
+                        <li>Eine offene, schamfreie Sprache nutzt</li>
+                        <li>Intimsphäre und Privatsphäre respektiert</li>
+                    </ul>
+
+                    <h3>Abgrenzung: Kindliche vs. Erwachsenensexualität</h3>
+                    <p>
+                        Wichtig: Kindliche Sexualität ist <strong>spielerisch, spontan und nicht zielorientiert</strong>. Sie unterscheidet sich grundlegend 
+                        von Erwachsenensexualität. Sexualerziehung heißt NICHT, Kinder zu sexualisieren oder frühzeitig zu sexuellen Aktivitäten 
+                        zu ermutigen – sondern ihre natürliche Entwicklung altersgerecht zu begleiten.
+                    </p>
+                `
+            },
+            grenzverletzungen: {
+                title: "⚠️ Grenzverletzungen",
+                definition: "Unabsichtliche oder unbewusste Überschreitungen persönlicher Grenzen, die meist aus Unachtsamkeit, Unwissenheit oder mangelnder Reflexion entstehen.",
+                content: `
+                    <h3>Was sind Grenzverletzungen?</h3>
+                    <p>
+                        Grenzverletzungen sind <strong>unbeabsichtigte, unabsichtliche oder unbewusste</strong> Überschreitungen der persönlichen – 
+                        psychischen oder körperlichen – Grenzen einer anderen Person. Sie entstehen oft aus Unachtsamkeit, fehlender Sensibilität 
+                        oder mangelndem Wissen.
+                    </p>
+
+                    <h3>Charakteristische Merkmale:</h3>
+                    <ul>
+                        <li><strong>Unbeabsichtigung:</strong> Die Person bemerkt nicht, dass sie eine Grenze überschreitet</li>
+                        <li><strong>Vereinzelt:</strong> Es passiert nicht wiederholt oder gezielt</li>
+                        <li><strong>Korrigierbar:</strong> Grenzverletzungen können durch Entschuldigung und Verhaltensänderung wieder gutgemacht werden</li>
+                        <li><strong>Empfindungs-subjektiv:</strong> Maßstab ist nicht nur das objektive Verhalten, sondern auch wie sich die betroffene Person fühlt</li>
+                    </ul>
+
+                    <h3>Beispiele in der Kita:</h3>
+                    <ul>
+                        <li>Ein Kind möchte einen Hug nicht – die Erzieherin bemerkt das nicht und umarmt es trotzdem</li>
+                        <li>Eine Fachkraft bekommt nicht mit, dass ein Kind seine Wickelzone nicht berührt haben möchte</li>
+                        <li>Ein Erwachsener macht einen verletzenden Kommentar über das Aussehen eines Kindes, ohne es böse zu meinen</li>
+                        <li>Ein anderes Kind drückt dem Spielkameraden ohne Erlaubnis einen Kuss auf die Wange</li>
+                        <li>Eine Person verbüßt zu fest die Hand eines Kindes beim Überqueren der Straße</li>
+                    </ul>
+
+                    <h3>Umgang mit Grenzverletzungen nach Maywald:</h3>
+                    <ul>
+                        <li><strong>Benennen:</strong> Die Grenzverletzung klar ansprechen und benennen</li>
+                        <li><strong>Verstehen:</strong> Mit dem Kind oder der Person reflektieren, was passiert ist</li>
+                        <li><strong>Entschuldigen:</strong> Echte Entschuldigung und Bedauern ausdrücken</li>
+                        <li><strong>Verhalten ändern:</strong> Konkrete Maßnahmen ergreifen, damit es nicht wieder passiert</li>
+                        <li><strong>Im Team reflektieren:</strong> Grenzverletzungen als Lernchance für das gesamte Team nutzen</li>
+                    </ul>
+
+                    <h3>Warum ist das wichtig?</h3>
+                    <p>
+                        Grenzverletzungen können sich zu sexuellen Übergriffen entwickeln, wenn sie nicht benannt und korrigiert werden. 
+                        Durch das bewusste Thematisieren werden Fachkräfte sensibilisiert und können präventiv handeln. Gleichzeitig 
+                        lernen Kinder, ihre Grenzen wahrzunehmen und zu verteidigen.
+                    </p>
+                `
+            },
+            uebergriffen: {
+                title: "🚫 Sexuelle Übergriffe",
+                definition: "Bewusste, wiederholte oder absichtliche Grenzüberschreitungen mit sexuellem Bezug, die gesellschaftliche Normen und fachliche Standards missachten.",
+                content: `
+                    <h3>Was sind sexuelle Übergriffe?</h3>
+                    <p>
+                        Sexuelle Übergriffe sind <strong>bewusste und absichtliche</strong> Überschreitungen sexueller oder körperlicher Grenzen. 
+                        Im Gegensatz zu Grenzverletzungen handelt es sich um Verletzungen, die gezielt erfolgen, die Widerstände des Opfers 
+                        übergangen werden und gesellschaftliche Normen und fachliche Standards missachtet werden.
+                    </p>
+
+                    <h3>Unterscheidung: Grenzverletzung vs. Übergriff</h3>
+                    <p><strong>Grenzverletzung:</strong> unabsichtlich, vereinzelt, aus Unachtsamkeit</p>
+                    <p><strong>Übergriff:</strong> absichtlich, wiederholend, gezielt, Widerstände werden ignoriert</p>
+
+                    <h3>Charakteristische Merkmale von Übergriffen:</h3>
+                    <ul>
+                        <li><strong>Bewusstsein:</strong> Der Täter / die Täterin ist sich bewusst, was er/sie tut</li>
+                        <li><strong>Wiederholung:</strong> Das übergriffi ge Verhalten wiederholt sich oder wird systematisch ausgeführt</li>
+                        <li><strong>Missachtung von Widerstand:</strong> Der Widerstand oder die Ablehnung des Opfers wird ignoriert</li>
+                        <li><strong>Machtausnutzung:</strong> Der Täter / die Täterin nutzt eine Position von Macht oder Autorität</li>
+                        <li><strong>Manipulation:</strong> Oft verbunden mit Manipulation, Drohung oder Bestechung</li>
+                        <li><strong>Keine Verantwortungsübernahme:</strong> Der Täter / die Täterin gibt dem Opfer die Schuld oder leugnet</li>
+                    </ul>
+
+                    <h3>Formen von sexuellen Übergriffen unter Kindern:</h3>
+                    <ul>
+                        <li><strong>Körperlich:</strong> Unerwünschte Berührungen mit sexuellem Bezug</li>
+                        <li><strong>Verbal:</strong> Sexuelle Kommentare, Witze oder Belästigungen</li>
+                        <li><strong>Manipulation:</strong> Ein Kind zwingt oder überredet ein anderes zu sexuellem Handeln</li>
+                        <li><strong>Machtdynamik:</strong> Ein Kind nutzt seine Macht oder seinen Altersabstand aus</li>
+                    </ul>
+
+                    <h3>Anbahnungsprozesse nach Maywald:</h3>
+                    <p>
+                        Wichtig zu verstehen: Täter und Täterinnen nutzen sexuelle Übergriffe oft systematisch, um die Grenzen 
+                        von Kindern zu testen und sie schrittweise auf strafrechtlich relevante Formen sexualisierter Gewalt 
+                        (sexueller Missbrauch) vorzubereiten. Dies nennt sich <strong>Anbahnungsprozess</strong> oder <strong>Grooming</strong>.
+                    </p>
+
+                    <h3>Wie Fachkräfte reagieren sollten:</h3>
+                    <ul>
+                        <li><strong>Sofort unterbrechen:</strong> Das übergriffi ge Verhalten unmittelbar stoppen</li>
+                        <li><strong>Das Opfer schützen:</strong> Das betroffene Kind in Sicherheit bringen und trösten</li>
+                        <li><strong>Die Tat ernst nehmen:</strong> Nicht verharmlosen oder beschönigen</li>
+                        <li><strong>Beide Kinder trennen:</strong> Ggf. vorübergehend räumlich trennen</li>
+                        <li><strong>Dokumentieren:</strong> Das Vorfallen genau dokumentieren</li>
+                        <li><strong>Eltern informieren:</strong> Mit Eltern beider Kinder besprechen</li>
+                        <li><strong>Fachliche Beratung:</strong> Spezialisierte Hilfe hinzuziehen</li>
+                    </ul>
+
+                    <h3>Wie man normale Kinderspiele unterscheidet:</h3>
+                    <p><strong>Normale Körperspiele:</strong> freiwillig, gegenseitig einvernehmlich, spielerisch, reversibel, ohne Machtdynamik</p>
+                    <p><strong>Übergriffe:</strong> unfreiwillig, einseitig, gezielt, bewusst verletzend, mit Machtdynamik</p>
+                `
+            },
+            missbrauch: {
+                title: "🛑 Sexueller Missbrauch",
+                definition: "Strafbar: Die Ausnutzung einer Machtposition oder eines Machtverhältnisses zur Befriedigung sexueller Interessen, oft mit körperlichen Handlungen verbunden.",
+                content: `
+                    <h3>Was ist sexueller Missbrauch?</h3>
+                    <p>
+                        Sexueller Missbrauch (auch: sexualisierte Gewalt) ist die <strong>strafbare Ausnutzung</strong> einer Machtposition 
+                        oder eines Machtverhältnisses zur Befriedigung sexueller Interessen. Es ist die schwerste Form von sexualisierter Gewalt.
+                    </p>
+
+                    <h3>Merkmale von sexuellem Missbrauch:</h3>
+                    <ul>
+                        <li><strong>Absichtlichkeit:</strong> Vorsätzlich begangene Tat</li>
+                        <li><strong>Machtposition:</strong> Der Täter / die Täterin nutzt eine Position von Macht, Autorität oder Vertrauen</li>
+                        <li><strong>Fehlende Zustimmung:</strong> Das Opfer kann NICHT einwilligen (Kinder sind nicht in der Lage zu zustimmen)</li>
+                        <li><strong>Körperliche/psychische Gewalt:</strong> Oft verbunden mit physischer oder emotionaler Gewalt</li>
+                        <li><strong>Strafrechtliche Relevanz:</strong> Strafbar nach Strafgesetzbuch (StGB)</li>
+                    </ul>
+
+                    <h3>Formen von sexuellem Missbrauch:</h3>
+                    <ul>
+                        <li><strong>Mit körperlichem Kontakt:</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Genitaler Kontakt</li>
+                                <li>Penetration (vaginal, anal, oral)</li>
+                                <li>Penetration mit Objekten</li>
+                                <li>Masturbation in Gegenwart des Kindes</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ohne körperlichen Kontakt:</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Exhibitionismus (Entblößen gegenüber dem Kind)</li>
+                                <li>Voyeurismus (Beobachten des Kindes beim Ausziehen/Toilettengang)</li>
+                                <li>Pornografische Material zeigen</li>
+                                <li>Sexuelle Kommunikation (online/offline)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>Täter*innen und Täterstrategien:</h3>
+                    <ul>
+                        <li><strong>Tatort:</strong> Täter und Täterinnen kommen aus allen Bereichen (Familie, Schule, Internet, Fremde)</li>
+                        <li><strong>Anbahnungsprozess:</strong> Oft erfolgt Missbrauch nach längerer emotionaler Manipulation (Grooming)</li>
+                        <li><strong>Vertrauensausnutzung:</strong> Der Missbrauch geschieht oft durch eine Person, die das Kind kennt und dem es vertraut</li>
+                        <li><strong>Geheimhaltung:</strong> Täter und Täterinnen zwingen Kinder, Schweigen zu bewahren (Drohungen, Beschämung)</li>
+                    </ul>
+
+                    <h3>Folgen für betroffene Kinder:</h3>
+                    <ul>
+                        <li><strong>Physisch:</strong> Verletzungen, Infektionen, psychosomatische Symptome</li>
+                        <li><strong>Psychisch:</strong> Trauma, Angst, Scham, Schuldgefühle, Depressionen, Dissoziation</li>
+                        <li><strong>Verhaltensbezogen:</strong> Schlafstörungen, Albträume, regressives Verhalten, Sexualisiertes Verhalten</li>
+                        <li><strong>Langfristig:</strong> Vertrauensprobleme, Beziehungsstörungen, Selbstschädigung, erhöhte Reviktimisierungsgefahr</li>
+                    </ul>
+
+                    <h3>Warnsignale und Indikatoren (nach Maywald):</h3>
+                    <ul>
+                        <li>Ängstlichkeit, besonders gegenüber bestimmten Personen</li>
+                        <li>Plötzliche Verhaltensänderungen</li>
+                        <li>Sexualisierte Verhaltensweisen, die nicht dem Alter entsprechen</li>
+                        <li>Verletzungen im Genitalbereich, Blutungen, Ausfluss</li>
+                        <li>Wiederkehrende Albträume oder Schlafstörungen</li>
+                        <li>Regression (Rückfall in frühere Entwicklungsstadien)</li>
+                        <li>Vermeidung bestimmter Personen oder Orte</li>
+                        <li>Ungewöhnliche Kenntnisse über Sexualität</li>
+                    </ul>
+
+                    <h3>Was Fachkräfte tun müssen:</h3>
+                    <ul>
+                        <li><strong>Verdacht ernst nehmen:</strong> Jeder Verdacht muss genommen werden</li>
+                        <li><strong>Dem Kind glauben:</strong> Kinder lügen selten über Missbrauch</li>
+                        <li><strong>Nicht befragen:</strong> Keine Suggestivfragen stellen (Strafverfolgung gefährden)</li>
+                        <li><strong>Dokumentieren:</strong> Beobachtungen exakt notieren</li>
+                        <li><strong>Melden:</strong> Verpflichtung zur Meldung an Behörden (Jugendamt, Polizei)</li>
+                        <li><strong>Rechtsberatung:</strong> Rechtliche Beratung in Anspruch nehmen</li>
+                        <li><strong>Kind schützen:</strong> Unmittelbare Schutzmaßnahmen ergreifen</li>
+                    </ul>
+
+                    <h3>Prävention nach Maywald:</h3>
+                    <p>
+                        <strong>Der beste Schutz vor sexuellem Missbrauch ist:</strong>
+                    </p>
+                    <ul>
+                        <li>Offene, sexualfreundliche Kommunikation mit Kindern</li>
+                        <li>Aufklärung über Körper und sexuelle Grenzen</li>
+                        <li>Stärkung der Selbstwirksamkeit und des Selbstwertgefühls</li>
+                        <li>Lehren von Grenzensetzen</li>
+                        <li>Vertrauenskultur, in der Kinder sich sicher trauen, Übergriffe zu berichten</li>
+                        <li>Fachkräfte-Training und Schutzkonzepte</li>
+                        <li>Elternarbeit und Netzwerkarbeit</li>
+                    </ul>
+                `
+            }
+        };
+
+        function openModal(term) {
+            const def = definitions[term];
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <div class="modal-header">${def.title}</div>
+                <div class="modal-definition">${def.definition}</div>
+                ${def.content}
+            `;
+            document.getElementById('modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
